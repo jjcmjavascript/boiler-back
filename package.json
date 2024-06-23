@@ -7,9 +7,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "typeorm": "typeorm-ts-node-commonjs",
-    "migration:create": "typeorm migration:create ./src/database/migrations",
-    "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/ -- -d ormconfig.ts",
-    "migration:run": "npm run typeorm migration:run -- -d ormconfig.ts",
+    "migration:create": "typeorm migration:create ./src/database/migrations/tempName && node ./src/scripts/rename-last-migration.js $name",
+    "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/tempName -- -d ormconfig.ts && node ./src/scripts/rename-last-migration.js $name",
+    "migration:migrate": "npm run typeorm migration:run -- -d ormconfig.ts",
     "migration:revert": "npm run typeorm migration:revert -- -d ormconfig.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
