@@ -10,16 +10,7 @@ if (!migrationName) {
 
 const date = parseInt((new Date().getTime() / 1000).toFixed(0));
 const fullMigrationName = `${migrationName.slice(0, 1).toUpperCase().concat(migrationName.slice(1))}${date}`;
-
-const exists = fs.existsSync(
-  path.resolve(__dirname, `../../migrations/${fullMigrationName}.ts`),
-);
-
-if (exists) {
-  console.error(`Migration ${migrationName} already exists`);
-  process.exit(1);
-}
-
+const fileName = `${date}-${migrationName}.ts`;
 const template = `import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class ${fullMigrationName} implements MigrationInterface {
@@ -33,9 +24,6 @@ export class ${fullMigrationName} implements MigrationInterface {
 }
 `;
 
-fs.writeFileSync(
-  path.resolve(__dirname, `../../migrations/${fullMigrationName}.ts`),
-  template,
-);
+fs.writeFileSync(path.resolve(__dirname, `../database/${fileName}`), template);
 
 console.log(`Migration ${fullMigrationName} creatd successfully`);

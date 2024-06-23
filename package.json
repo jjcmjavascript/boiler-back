@@ -6,8 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "db:migration:create": "node ./src/scripts/migration-create.js $name",
-    "migration:run": "npm run typeorm migration:run -d ormconfig.js",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:create": "typeorm migration:create ./src/database/migrations",
+    "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/ -- -d ormconfig.ts",
+    "migration:run": "npm run typeorm migration:run -- -d ormconfig.ts",
+    "migration:revert": "npm run typeorm migration:revert -- -d ormconfig.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
