@@ -14,7 +14,6 @@ import databaseConfig from './config/database.config';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        console.log(configService.get('database'));
         return {
           type: configService.get<string>('database.type') as any, // o el tipo de base de datos que estés usando
           host: configService.get<string>('database.host'),

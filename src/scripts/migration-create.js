@@ -1,8 +1,6 @@
 const fs = require('fs'); //eslint-disable-line
 const path = require('path'); //eslint-disable-line
 const argument = process.argv[2];
-
-console.log('Creating migration...', process.argv);
 const migrationName = argument ? argument.split('=')[1] : null;
 
 if (!migrationName) {
@@ -11,7 +9,7 @@ if (!migrationName) {
 }
 
 const date = parseInt((new Date().getTime() / 1000).toFixed(0));
-const fullMigrationName = `${migrationName.slice(0, 1).toUpperCase().concat(migrationName.slice(1))}-${date}`;
+const fullMigrationName = `${migrationName.slice(0, 1).toUpperCase().concat(migrationName.slice(1))}${date}`;
 
 const exists = fs.existsSync(
   path.resolve(__dirname, `../../migrations/${fullMigrationName}.ts`),
@@ -41,4 +39,3 @@ fs.writeFileSync(
 );
 
 console.log(`Migration ${fullMigrationName} creatd successfully`);
-process.exit(1);

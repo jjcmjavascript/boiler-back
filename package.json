@@ -6,11 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "db:migration:create": "node ./src/scripts/migration-create.js $name",
+    "migration:run": "npm run typeorm migration:run -d ormconfig.js",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
-    "db:migration:create": "node ./src/scripts/migration-create.js $name",
     "start:debug": "nest start --debug --watch",
     "prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
