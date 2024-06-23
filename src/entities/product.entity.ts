@@ -14,19 +14,19 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   nameVariantId: string;
 
   @Column()
   code: string;
 
-  @Column()
+  @Column({ type: 'numeric', precision: 12, scale: 4 })
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   jsonDescriptionId: number;
 
-  @Column()
+  @Column({ default: true })
   isInternal: boolean;
 
   @Column()
