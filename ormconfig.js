@@ -1,7 +1,7 @@
-const { DataSource } = require('typeorm');
-const dotenv = require('dotenv');
+const { DataSource } = require('typeorm'); //eslint-disable-line
+const dotenv = require('dotenv'); // eslint-disable-line
 
-dotenv.config();
+dotenv && dotenv.config();
 
 module.exports = new DataSource({
   type: process.env.DATABASE_TYPE,
@@ -10,7 +10,7 @@ module.exports = new DataSource({
   username: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  entities: ['src/models/**/*.ts'],
-  migrations: ['database/migrations/**/*.ts'],
-  subscribers: ['src/subscriber/**/*.ts'],
+  entities: [],
+  migrations: ['migrations/*.ts'],
+  subscribers: [],
 });
