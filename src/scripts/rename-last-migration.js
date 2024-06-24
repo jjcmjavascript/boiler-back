@@ -5,15 +5,20 @@ const fs = require('fs'); //eslint-disable-line
 const path = require('path'); //eslint-disable-line
 const argument = process.argv[2];
 const migrationName = argument ? argument.split('=')[1] : null;
-
-if (!migrationName) {
-  console.error('Usage: create-migrations <migration-name>');
-  process.exit(1);
-}
-
 const migrationPath = path.join(__dirname, '../database/migrations');
 const files = fs.readdirSync(migrationPath);
 const lastMigration = files[files.length - 1];
+
+if (!migrationName) {
+  console.error(
+    'You must provide a migration name. Example: --name=CreateUsersTable',
+  );
+
+  fs.unlinkSync(path.join(migrationPath, lastMigration));
+  console.error(`Migration ${lastMigration} deleted`);
+  process.exit(1);
+}
+
 const newMigrationName = lastMigration
   .replace(/(\d+)-(.*)/, `$1-${migrationName}`)
   .concat('.ts');

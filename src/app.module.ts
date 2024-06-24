@@ -22,6 +22,7 @@ import databaseConfig from './config/database.config';
           password: configService.get<string>('database.password'),
           database: configService.get<string>('database.database'),
           synchronize: configService.get<boolean>('database.synchronize'),
+          entities: configService.get<string[]>('database.entities'),
         };
       },
     }),

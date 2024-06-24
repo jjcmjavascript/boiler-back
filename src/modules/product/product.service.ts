@@ -1,43 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { ProductInterface } from './product.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Product } from '../../entities/product.entity';
 
 @Injectable()
 class ProductService {
-  private fakeProducts: ProductInterface[];
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
+  ) {}
 
-  constructor() {
-    this.fakeProducts = [
-      {
-        name: 'Product 1',
-        price: 100,
-        nameVariantId: 'product-1',
-        code: 'P1',
-        isInternal: false,
-        jsonDescription: {
-          description: 'Product 1 description',
-        },
-        createdAt: new Date(),
-      },
-      {
-        name: 'Product 2',
-        price: 200,
-        nameVariantId: 'product-2',
-        code: 'P2',
-        isInternal: true,
-        jsonDescription: {
-          description: 'Product 2 description',
-        },
-        createdAt: new Date(),
-      },
-    ];
+  async getProducts(): Promise<Product[]> {
+    return await this.productRepository.find();
   }
 
-  getProducts(): ProductInterface[] {
-    return this.fakeProducts;
+  async productById(id: number): Promise<Product> {
+    return await this.productRepository.findOneBy({ id });
   }
 
-  productById(id: string): ProductInterface {
-    return this.fakeProducts.find((product) => product.nameVariantId === id);
+  async createProduct(product: Product): Promise<Product> {
+    return await this.productRepository.save(product);
   }
 }
 export { ProductService };
