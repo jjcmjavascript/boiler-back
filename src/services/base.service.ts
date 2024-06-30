@@ -26,7 +26,7 @@ export class BaseService<T extends object> {
   }
 
   async findOne(where: FindOptionsWhere<T>): Promise<T> {
-    const result = await this.repository.findOne(where);
+    const result = await this.repository.findOne({ where });
 
     return result;
   }
