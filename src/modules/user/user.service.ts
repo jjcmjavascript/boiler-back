@@ -1,12 +1,12 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BaseService } from 'src/services/base.service';
+import { BaseRespositoryService } from 'src/services/base-respository.service';
 import { User } from 'src/entities/user.entity';
 import { UserCreateDto } from './user.dto';
 import { encrypt } from 'src/services/hash.service';
 @Injectable()
-class UserService extends BaseService<User> {
+class UserService extends BaseRespositoryService<User> {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
