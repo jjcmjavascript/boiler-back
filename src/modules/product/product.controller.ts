@@ -7,17 +7,17 @@ class ProductController {
   constructor(private productService: ProductService) {}
 
   @Get()
-  getProducts() {
+  index() {
     return this.productService.findAll();
   }
 
   @Get(':id')
-  getProductById(id: number) {
+  show(id: number) {
     return this.productService.findOneById(id);
   }
 
   @Post()
-  createProduct(@Body() productParam: ProductDto) {
+  create(@Body() productParam: ProductDto) {
     return this.productService.create(productParam as any);
   }
 }

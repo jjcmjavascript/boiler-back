@@ -20,7 +20,7 @@ export class PermissionService {
     },
   ];
 
-  public static getModulesByRoles(roles: []): string[] {
+  public static getModulesByRoles(roles: Roles[]): string[] {
     let modules = [];
     const permissions = PermissionService.permissions;
 
@@ -35,7 +35,9 @@ export class PermissionService {
     return [...modulesSet];
   }
 
-  public static getModulesActionsByRoles(roles: []): Record<string, string[]> {
+  public static getModulesActionsByRoles(
+    roles: Roles[],
+  ): Record<string, string[]> {
     const modulesActions = {};
     const permissions = PermissionService.permissions;
 

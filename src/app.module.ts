@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ProductModule } from './modules/product/product.module';
+import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from './config/database.config';
@@ -27,6 +28,7 @@ import databaseConfig from './config/database.config';
       },
     }),
     ProductModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
