@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 import { Roles } from '../services/permission/types/roles.enum';
 
 @Entity('users')
@@ -30,4 +35,7 @@ export class User {
     default: Roles.User,
   })
   role: Roles;
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

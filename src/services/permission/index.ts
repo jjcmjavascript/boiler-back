@@ -1,24 +1,8 @@
-import { Modules } from './types/modules.enum';
-import { Permissions } from './types/permissions.enum';
 import { Roles } from './types/roles.enum';
 import { Permission as IPermission } from './interface/permission.interface';
-
+import { permissionByRoleList } from './permision-by-role-list';
 export class PermissionService {
-  private static permissions: IPermission[] = [
-    {
-      role: Roles.Admin,
-      modules: [
-        {
-          name: Modules.Product,
-          permissions: [
-            Permissions.Read,
-            Permissions.Write,
-            Permissions.Delete,
-          ],
-        },
-      ],
-    },
-  ];
+  private static permissions: IPermission[] = permissionByRoleList;
 
   public static getModulesByRoles(roles: Roles[]): string[] {
     let modules = [];
