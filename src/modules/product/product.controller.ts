@@ -8,17 +8,17 @@ class ProductController {
 
   @Get()
   getProducts() {
-    return this.productService.getProducts();
+    return this.productService.findAll();
   }
 
   @Get(':id')
   getProductById(id: number) {
-    return this.productService.productById(id);
+    return this.productService.findOneById(id);
   }
 
   @Post()
   createProduct(@Body() productParam: ProductDto) {
-    return this.productService.createProduct(productParam as any);
+    return this.productService.create(productParam as any);
   }
 }
 
