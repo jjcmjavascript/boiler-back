@@ -6,7 +6,6 @@ import { Public } from 'src/decorators/public.decorator';
 export class UserController {
   constructor(readonly userService: UserService) {}
 
-  @Public()
   @Get()
   async index() {
     const users = await this.userService.findAll();
@@ -14,6 +13,7 @@ export class UserController {
     return [...users];
   }
 
+  @Public()
   @Post()
   async create(@Body() userDto: UserCreateDto) {
     const result = await this.userService.create(userDto);

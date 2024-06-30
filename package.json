@@ -1,8 +1,8 @@
 {
   "name": "simple-market-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "simple market backend create by jjcmjavascript",
+  "author": "MIT",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
