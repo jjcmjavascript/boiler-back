@@ -2,7 +2,9 @@
   npm run migration:create -- --name=NombreDeLaMigracion
 
 ## generate migration - como generar una migracion
-npm run migration:generate -- --name=NombreDeLaMigracion
+# cuando generes una migracion agrega de preferencia IF NOT EXISTs y IF EXISTS en el drop
+# I recomend add the sentence IF NOT EXISTs y IF EXISTS in the create and drop method
+npm run migration:generate -- --name=NombreDeLaMigracion 
 
 ## run migration - como correr una migracion
 npm run migration:migrate

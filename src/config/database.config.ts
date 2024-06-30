@@ -8,7 +8,7 @@ const dbConfigObject = Object.seal(
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
-    synchronize: process.env.ENVIROMENT !== 'production',
+    synchronize: false,
     entities: [__dirname + '/../entities/*.entity{.ts,.js}'],
   }),
 );
