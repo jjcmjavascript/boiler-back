@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/modules/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { PermissionService } from 'src/services/permission';
+import { compare } from 'src/services/hash.service';
 @Injectable()
 export class AuthService {
   constructor(
@@ -14,9 +15,11 @@ export class AuthService {
     password: string,
   ): Promise<{ access_token: string }> {
     const user = await this.usersService.findOne({ email });
-    if (user?.password !== password) {
+
+    if (!compare(password, user?.password)) {
       throw new UnauthorizedException();
     }
+
     const payload = {
       sub: user.id,
       username: user.name,

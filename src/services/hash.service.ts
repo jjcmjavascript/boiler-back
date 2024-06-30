@@ -8,7 +8,7 @@ export async function encrypt(password: string) {
   return result;
 }
 
-export async function decrypt(password: string, hash: string) {
+export async function compare(password: string, hash: string) {
   const result = await bcrypt.compare(password, hash);
 
   return result;
