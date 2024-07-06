@@ -1,14 +1,22 @@
 import 'dotenv/config'; // eslint-disable-line
 import { DataSource } from 'typeorm'; //eslint-disable-line
+import { registerAs } from '@nestjs/config';
 
-export default new DataSource({
+export const DATABASE_NAME = process.env.DATABASE_NAME;
+
+export const dbConfigObject = {
   type: process.env.DATABASE_TYPE as any,
   host: process.env.DATABASE_HOST,
-  port: parseInt(process.env.DATABASE_PORT, 10),
+  port: process.env.DATABASE_PORT,
   username: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  database: DATABASE_NAME,
+  synchronize: false,
   entities: ['src/entities/*.entity{.ts,.js}'],
   migrations: ['src/database/migrations/*.ts'],
   subscribers: [],
-});
+};
+
+export default new DataSource(dbConfigObject);
+
+export const dbRegisterAsResutl = registerAs('database', () => dbConfigObject);

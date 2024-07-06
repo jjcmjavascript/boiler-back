@@ -7,6 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "typeorm": "typeorm-ts-node-commonjs",
+    "db:create": "ts-node ./src/scripts/create-db.ts",
+    "db:drop": "ts-node ./src/scripts/drop-db.ts",
     "migration:create": "typeorm migration:create ./src/database/migrations/tempName && node ./src/scripts/rename-last-migration.js $name",
     "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/tempName -- -d ormconfig.ts && node ./src/scripts/rename-last-migration.js $name",
     "migration:migrate": "npm run typeorm migration:run -- -d ormconfig.ts",
