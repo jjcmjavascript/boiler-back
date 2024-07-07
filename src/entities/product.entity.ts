@@ -5,7 +5,13 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
+
+import { Price } from './price.entity';
+import { Entry } from './entry.entity';
 
 @Entity('products')
 export class Product {
@@ -21,17 +27,18 @@ export class Product {
   @Column()
   code: string;
 
-  @Column({ type: 'numeric', precision: 12, scale: 4 })
-  price: number;
-
   @Column({ nullable: true })
   jsonDescriptionId: number;
 
   @Column({ default: true })
   isInternal: boolean;
 
-  @Column()
-  password: string;
+  @OneToMany(() => Price, (price) => price.product)
+  prices: Price[];
+
+  @ManyToMany(() => Entry)
+  @JoinTable()
+  entries: Entry[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -1,6 +1,6 @@
 import { FindOptionsWhere, Repository } from 'typeorm';
 
-export class BaseRespositoryService<T extends object> {
+export class BaseRespositoryService<T> {
   constructor(private readonly repository: Repository<T>) {}
 
   async findAll(): Promise<T[]> {
