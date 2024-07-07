@@ -1,0 +1,51 @@
+[1mdiff --git a/src/config/ormconfig.ts b/src/config/ormconfig.ts[m
+[1mindex 44f0b5c..3b230b2 100644[m
+[1m--- a/src/config/ormconfig.ts[m
+[1m+++ b/src/config/ormconfig.ts[m
+[36m@@ -1,6 +1,7 @@[m
+ import 'dotenv/config'; // eslint-disable-line[m
+ import { DataSource } from 'typeorm'; //eslint-disable-line[m
+ import { registerAs } from '@nestjs/config';[m
+[32m+[m[32mimport path from 'path';[m
+ [m
+ export const DATABASE_NAME = process.env.DATABASE_NAME;[m
+ [m
+[36m@@ -12,8 +13,8 @@[m [mexport const dbConfigObject = {[m
+   password: process.env.DATABASE_PASSWORD,[m
+   database: DATABASE_NAME,[m
+   synchronize: false,[m
+[31m-  entities: ['../entities/*.entity{.ts,.js}'],[m
+[31m-  migrations: ['../database/migrations/*.ts'],[m
+[32m+[m[32m  entities: [path.join(__dirname, '..', 'entities', '*.entity{.ts,.js}')],[m
+[32m+[m[32m  migrations: [path.join(__dirname, '..', 'database', 'migrations', '*.ts')],[m
+   subscribers: [],[m
+ };[m
+ [m
+[1mdiff --git a/src/entities/user.entity.ts b/src/entities/user.entity.ts[m
+[1mindex e9e5a33..e4c85e3 100644[m
+[1m--- a/src/entities/user.entity.ts[m
+[1m+++ b/src/entities/user.entity.ts[m
+[36m@@ -5,7 +5,7 @@[m [mimport {[m
+   DeleteDateColumn,[m
+ } from 'typeorm';[m
+ [m
+[31m-import { Roles } from 'src/services/permission/types/roles.enum';[m
+[32m+[m[32mimport { Roles } from '../services/permission/types/roles.enum';[m
+ [m
+ @Entity('users')[m
+ export class User {[m
+[1mdiff --git a/src/services/base-respository.service.ts b/src/services/base-respository.service.ts[m
+[1mindex 65609cb..3dfa960 100644[m
+[1m--- a/src/services/base-respository.service.ts[m
+[1m+++ b/src/services/base-respository.service.ts[m
+[36m@@ -4,7 +4,9 @@[m [mexport class BaseRespositoryService<T extends object> {[m
+   constructor(private readonly repository: Repository<T>) {}[m
+ [m
+   async findAll(): Promise<T[]> {[m
+[31m-    return await this.repository.find();[m
+[32m+[m[32m    const result = await this.repository.find();[m
+[32m+[m
+[32m+[m[32m    return result;[m
+   }[m
+ [m
+   async findOneById(id: number): Promise<T> {[m

@@ -1,6 +1,7 @@
 import 'dotenv/config'; // eslint-disable-line
 import { DataSource } from 'typeorm'; //eslint-disable-line
 import { registerAs } from '@nestjs/config';
+import path from 'path';
 
 export const DATABASE_NAME = process.env.DATABASE_NAME;
 
@@ -12,8 +13,8 @@ export const dbConfigObject = {
   password: process.env.DATABASE_PASSWORD,
   database: DATABASE_NAME,
   synchronize: false,
-  entities: ['../entities/*.entity{.ts,.js}'],
-  migrations: ['../database/migrations/*.ts'],
+  entities: [path.join(__dirname, '..', 'entities', '*.entity{.ts,.js}')],
+  migrations: [path.join(__dirname, '..', 'database', 'migrations', '*.ts')],
   subscribers: [],
 };
 
