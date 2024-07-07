@@ -1,5 +1,5 @@
 ## Guia de Instalacion - Installation Guide
-
+## Node version 20.0.0+
 ### Instalacion de dependencias - Install dependencies
 ```bash
 npm install
@@ -24,6 +24,12 @@ npm run db:create
 ```bash
 npm run migration:migrate
 ```
+
+### Ejecutar el proyecto - Run the project
+```bash
+npm run dev
+```
+# Comandos - Commands
 
 ## create migration - como crear una migracion
 ```bash
