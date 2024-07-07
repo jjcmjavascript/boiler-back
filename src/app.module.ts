@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { dbRegisterAsResutl } from '../ormconfig';
+import { dbRegisterAsResutl } from './config/ormconfig';
 
 import { ProductModule } from './modules/product/product.module';
 import { UserModule } from './modules/user/user.module';
