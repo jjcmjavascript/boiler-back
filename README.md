@@ -1,5 +1,8 @@
 ## Guia de Instalacion - Installation Guide
-## Node version 20.0.0+
+## Requisitos
+Node version 20.0.0+
+postgresql version 13.0.0+
+
 ### Instalacion de dependencias - Install dependencies
 ```bash
 npm install
