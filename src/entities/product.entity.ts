@@ -24,13 +24,13 @@ export class Product {
   @Column({ nullable: true })
   nameVariantId: string;
 
-  @Column()
+  @Column({ nullable: true })
   code: string;
 
   @Column({ nullable: true })
   jsonDescriptionId: number;
 
-  @Column({ default: true })
+  @Column({ default: false })
   isInternal: boolean;
 
   @OneToMany(() => Price, (price) => price.product)

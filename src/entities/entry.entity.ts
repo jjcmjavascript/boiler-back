@@ -18,6 +18,9 @@ export class Entry {
   @Column()
   userId: number;
 
+  @Column({ type: 'varchar', length: 250 })
+  type: string;
+
   @ManyToMany(() => Product)
   @JoinTable()
   products: Product[];
@@ -34,7 +37,7 @@ export class Entry {
     precision: 22,
     scale: 10,
   })
-  cost: number;
+  price: number;
 
   @Column({ nullable: true })
   documentId: number;

@@ -7,7 +7,7 @@ export class CreateEntityAndPriceTable1720392895526
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "entries" ("id" SERIAL NOT NULL, "userId" integer NOT NULL, "quantity" numeric(22,10) NOT NULL, "cost" numeric(22,10) NOT NULL, "documentId" integer, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_23d4e7e9b58d9939f113832915b" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "entries" ("id" SERIAL NOT NULL, "userId" integer NOT NULL, "type" character varying(250), "quantity" numeric(22,10) NOT NULL, "price" numeric(22,10) NOT NULL, "documentId" integer, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_23d4e7e9b58d9939f113832915b" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "prices" ("id" SERIAL NOT NULL, "product" integer NOT NULL, "price" numeric(22,10) NOT NULL, "entryId" integer, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, "productId" integer, CONSTRAINT "PK_2e40b9e4e631a53cd514d82ccd2" PRIMARY KEY ("id"))`,
@@ -31,7 +31,6 @@ export class CreateEntityAndPriceTable1720392895526
       `CREATE INDEX "IDX_87ebc41047c1d0319ce69c7162" ON "products_entries_entries" ("entriesId") `,
     );
     await queryRunner.query(`ALTER TABLE "products" DROP COLUMN "price"`);
-    await queryRunner.query(`ALTER TABLE "products" DROP COLUMN "password"`);
     await queryRunner.query(
       `ALTER TABLE "prices" ADD CONSTRAINT "FK_fe932c923ecd4abc3f0ac915736" FOREIGN KEY ("productId") REFERENCES "products"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
@@ -65,9 +64,7 @@ export class CreateEntityAndPriceTable1720392895526
     await queryRunner.query(
       `ALTER TABLE "prices" DROP CONSTRAINT "FK_fe932c923ecd4abc3f0ac915736"`,
     );
-    await queryRunner.query(
-      `ALTER TABLE "products" ADD "password" character varying NOT NULL`,
-    );
+
     await queryRunner.query(
       `ALTER TABLE "products" ADD "price" numeric(12,4) NOT NULL`,
     );
