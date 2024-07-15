@@ -5,7 +5,7 @@ import { Entry } from '../../entities/entry.entity';
 import { BaseRespositoryService } from '../../services/base-respository.service';
 
 @Injectable()
-class EntriesService extends BaseRespositoryService<Entry> {
+class EntryService extends BaseRespositoryService<Entry> {
   constructor(
     @InjectRepository(Entry)
     private readonly entryRepository: Repository<Entry>,
@@ -14,4 +14,4 @@ class EntriesService extends BaseRespositoryService<Entry> {
   }
 }
 
-export { EntriesService };
+export { EntryService };

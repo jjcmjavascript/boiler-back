@@ -29,6 +29,10 @@ class Product {
   @IsNumber()
   @IsNotEmpty()
   price: number;
+
+  @IsString()
+  @IsOptional()
+  code: string;
 }
 
 export class ProductDto {

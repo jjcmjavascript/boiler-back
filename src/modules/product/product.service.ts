@@ -1,16 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Product } from '../../entities/product.entity';
-import { BaseRespositoryService } from 'src/services/base-respository.service';
 import { Request } from 'express';
 import { ProductDto } from './product.dto';
+import { Repository } from 'typeorm';
+import { Product } from '../../entities/product.entity';
+import { BaseRespositoryService } from '../../services/base-respository.service';
+import { EntryService } from '../entries/entry.service';
+import { PriceService } from '../prices/price.service';
 
 @Injectable()
 class ProductService extends BaseRespositoryService<Product> {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    private readonly entryService: EntryService,
+    private readonly priceService: PriceService,
   ) {
     super(productRepository);
   }
@@ -20,7 +24,10 @@ class ProductService extends BaseRespositoryService<Product> {
     res: Request,
   ): Promise<Product> {
     const isAdmin = res['user'];
-    const productChanged = { ...(productObject as any), isInternal: isAdmin };
+    const productChanged = {
+      ...productObject.product[0],
+      isInternal: isAdmin,
+    };
 
     return this.productRepository.save(productChanged);
   }
