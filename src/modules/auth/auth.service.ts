@@ -29,7 +29,7 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '60m',
     });
     const refreshToken = await this.jwtService.signAsync(payload, {
       expiresIn: '60m',
@@ -38,7 +38,7 @@ export class AuthService {
     response.cookie('access_token', accessToken, {
       httpOnly: true,
       secure: true,
-      maxAge: 900000, // 15 minutos
+      maxAge: 3600000, // 1 hr
     });
 
     response.cookie('refresh_token', refreshToken, {
@@ -52,7 +52,7 @@ export class AuthService {
     try {
       const payload = this.jwtService.verify(refreshToken);
       const newAccessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '15m',
+        expiresIn: '60m',
       });
 
       res.cookie('access_token', newAccessToken, {

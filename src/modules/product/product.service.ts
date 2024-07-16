@@ -19,17 +19,11 @@ class ProductService extends BaseRespositoryService<Product> {
     super(productRepository);
   }
 
-  public async createProduct(
-    productObject: ProductDto,
-    res: Request,
-  ): Promise<Product> {
+  public async createProduct(res: Request, productObject: ProductDto) {
     const isAdmin = res['user'];
-    const productChanged = {
-      ...productObject.product[0],
-      isInternal: isAdmin,
-    };
 
-    return this.productRepository.save(productChanged);
+    console.log('isAdmin', isAdmin);
+    console.log('productObject', productObject);
   }
 }
 export { ProductService };

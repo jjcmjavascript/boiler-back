@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductDto } from './product.dto';
 import { Public } from 'src/decorators/public.decorator';
+import { Request } from 'express';
 
 @Controller('products')
 class ProductController {
@@ -20,8 +21,8 @@ class ProductController {
   }
 
   @Post()
-  create(@Body() productParam: ProductDto) {
-    return this.productService.create(productParam as any);
+  create(@Req() res: Request, @Body() productParam: ProductDto) {
+    return this.productService.createProduct(res, productParam);
   }
 }
 

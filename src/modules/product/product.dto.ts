@@ -3,7 +3,6 @@ import {
   IsString,
   IsNumber,
   IsOptional,
-  IsArray,
   ValidateNested,
 } from 'class-validator';
 
@@ -36,9 +35,9 @@ class Product {
 }
 
 export class ProductDto {
-  product: Product[];
+  @ValidateNested()
+  product: Product;
 
-  @IsArray()
   @ValidateNested({ each: true })
   entries: EntryDto[];
 }
