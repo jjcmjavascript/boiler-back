@@ -18,6 +18,15 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@modules/*": ["src/modules/*"],
+      "@services/*": ["src/services/*"],
+      "@entities/*": ["src/entities/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@products/*": ["src/modules/products/*"],
+      "@entries/*": ["src/modules/entries/*"],
+    }
   }
 }

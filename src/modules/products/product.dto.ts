@@ -1,9 +1,11 @@
+import { Transform } from 'class-transformer';
 import {
   IsNotEmpty,
   IsString,
   IsNumber,
   IsOptional,
   ValidateNested,
+  IsInt,
 } from 'class-validator';
 
 class EntryDto {
@@ -40,4 +42,10 @@ export class ProductDto {
 
   @ValidateNested({ each: true })
   entries: EntryDto[];
+}
+
+export class ProductIdDto {
+  @Transform(({ value }) => parseInt(value, 10))
+  @IsInt()
+  id: number;
 }

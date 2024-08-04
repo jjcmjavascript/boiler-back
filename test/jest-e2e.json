@@ -9,7 +9,10 @@
   "moduleNameMapper": {
     "^@/(.*)$": "<rootDir>/../src/$1",
     "^@modules/(.*)$": "<rootDir>/../src/modules/$1",
-    "^@contracts/(.*)$": "<rootDir>/../src/modules/contracts/$1",
-    "^@shared/(.*)$": "<rootDir>/../src/shared/$1"
+    "^@services/(.*)$": "<rootDir>/../src/services/$1",
+    "^@entities/(.*)$": "<rootDir>/../src/entities/$1",
+    "^@decorators/(.*)$": "<rootDir>/../src/decorators/$1",
+    "^@products/(.*)$": "<rootDir>/../src/modules/products/$1",
+    "^@entries/(.*)$": "<rootDir>/../src/modules/entries/$1"
   }
 }

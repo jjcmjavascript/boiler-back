@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { dbRegisterAsResutl } from './config/ormconfig';
 
-import { ProductModule } from './modules/product/product.module';
-import { UserModule } from './modules/user/user.module';
+import { ProductModule } from './modules/products/product.module';
+import { UserModule } from './modules/users/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 @Module({

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Price } from 'src/entities/price.entity';
+import { Price } from '@entities/price.entity';
 import { PriceService } from './price.service';
 
 @Module({

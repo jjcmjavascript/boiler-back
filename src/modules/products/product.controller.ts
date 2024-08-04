@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Param } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { ProductDto } from './product.dto';
-import { Public } from 'src/decorators/public.decorator';
+import { ProductDto, ProductIdDto } from './product.dto';
+import { Public } from '@decorators/public.decorator';
 import { Request } from 'express';
 
 @Controller('products')
@@ -16,8 +16,8 @@ class ProductController {
 
   @Get(':id')
   @Public()
-  show(id: number) {
-    return this.productService.findOneById(id);
+  show(@Param() productParams: ProductIdDto) {
+    return this.productService.findOneById(productParams.id);
   }
 
   @Post()
