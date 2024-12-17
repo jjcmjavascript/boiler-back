@@ -4,15 +4,10 @@
   "description": "simple market backend create by jjcmjavascript",
   "author": "MIT",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "GPL-3.0-only",
   "scripts": {
-    "typeorm": "typeorm-ts-node-commonjs",
     "db:create": "ts-node ./src/scripts/create-db.ts",
     "db:drop": "ts-node ./src/scripts/drop-db.ts",
-    "migration:create": "typeorm migration:create ./src/database/migrations/tempName && node ./src/scripts/rename-last-migration.js $name",
-    "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/tempName -- -d ormconfig.ts && node ./src/scripts/rename-last-migration.js $name",
-    "migration:migrate": "npm run typeorm migration:run -- -d ormconfig.ts",
-    "migration:revert": "npm run typeorm migration:revert -- -d ormconfig.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start -b swc",
@@ -32,15 +27,12 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
-    "@nestjs/typeorm": "^10.0.2",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "dotenv": "^16.4.5",
     "pg": "^8.12.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1",
-    "typeorm": "^0.3.20"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -84,5 +76,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "prisma": {
+    "schema": "./src/shared/services/database/schema.prisma"
   }
 }

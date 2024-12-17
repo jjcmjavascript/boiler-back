@@ -22,11 +22,12 @@
     "paths": {
       "@/*": ["src/*"],
       "@modules/*": ["src/modules/*"],
-      "@services/*": ["src/services/*"],
+      "@services/*": ["src/shared/services/*"],
       "@entities/*": ["src/entities/*"],
-      "@decorators/*": ["src/decorators/*"],
+      "@decorators/*": ["src/shared/decorators/*"],
       "@products/*": ["src/modules/products/*"],
       "@entries/*": ["src/modules/entries/*"],
+      "@config/*": ["src/config/*"],
     }
   }
 }
