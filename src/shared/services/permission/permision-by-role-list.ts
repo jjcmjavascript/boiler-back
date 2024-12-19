@@ -7,15 +7,6 @@ export const permissionByRoleList = [
     role: Roles.Admin,
     modules: [
       {
-        name: Modules.Product,
-        permissions: [
-          Permissions.Read,
-          Permissions.Write,
-          Permissions.Disabled,
-          Permissions.Delete,
-        ],
-      },
-      {
         name: Modules.User,
         permissions: [
           Permissions.Read,

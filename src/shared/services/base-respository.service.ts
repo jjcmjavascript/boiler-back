@@ -1,7 +1,5 @@
-import { FindOptionsWhere, Repository } from 'typeorm';
-
 export class BaseRespositoryService<T> {
-  constructor(private readonly repository: Repository<T>) {}
+  constructor(private readonly repository) {}
 
   async findAll(): Promise<T[]> {
     return await this.repository.find();
@@ -23,11 +21,5 @@ export class BaseRespositoryService<T> {
 
   async delete(id: number): Promise<void> {
     await this.repository.delete(id);
-  }
-
-  async findOne(where: FindOptionsWhere<T>): Promise<T> {
-    const result = await this.repository.findOne({ where });
-
-    return result;
   }
 }

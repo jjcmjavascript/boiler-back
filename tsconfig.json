@@ -17,16 +17,14 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
     "paths": {
-      "@/*": ["src/*"],
+      "@shared/*": ["src/shared/*"],
       "@modules/*": ["src/modules/*"],
       "@services/*": ["src/shared/services/*"],
-      "@entities/*": ["src/entities/*"],
+      "@entities/*": ["src/shared/entities/*"],
       "@decorators/*": ["src/shared/decorators/*"],
-      "@products/*": ["src/modules/products/*"],
-      "@entries/*": ["src/modules/entries/*"],
+      "@contracts/*": ["src/shared/contracts/*"],
+      "@helpers/*": ["src/shared/helpers/*"],
       "@config/*": ["src/config/*"],
     }
   }

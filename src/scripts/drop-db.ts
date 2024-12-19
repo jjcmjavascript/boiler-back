@@ -1,7 +1,7 @@
-
 import { exec } from 'child_process';
-import process from 'node:process';
-process.loadEnvFile();
+import 'dotenv/config';
+
+console.log(process.env.DATABASE_NAME);
 
 exec(`dropdb ${process.env.DATABASE_NAME}`, (error, stdout, stderr) => {
   if (error) {

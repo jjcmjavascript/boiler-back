@@ -3,6 +3,9 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" VARCHAR NOT NULL,
     "name" VARCHAR NOT NULL,
+    "lastname" VARCHAR,
+    "tax" VARCHAR,
+    "active" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -10,6 +13,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Password" (
     "id" SERIAL NOT NULL,
+    "password" VARCHAR NOT NULL,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Password_pkey" PRIMARY KEY ("id")

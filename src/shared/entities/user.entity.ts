@@ -1,42 +1,40 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  DeleteDateColumn,
-} from 'typeorm';
-
-import { Roles } from '../services/permission/types/roles.enum';
-
-@Entity('users')
-export class User {
-  @PrimaryGeneratedColumn()
+export interface UserPrimitive {
   id: number;
-
-  @Column({ length: 100 })
   name: string;
-
-  @Column({ length: 100 })
-  lastname: string;
-
-  @Column({ length: 30 })
-  tax: string;
-
-  @Column({ length: 100 })
+  lastname?: string;
+  tax?: string;
   email: string;
-
-  @Column({ length: 250 })
-  password: string;
-
-  @Column({ default: true })
   active: boolean;
+}
 
-  @Column({
-    type: 'enum',
-    enum: Roles,
-    default: Roles.User,
-  })
-  role: Roles;
+export class User {
+  #attributes: UserPrimitive;
 
-  @DeleteDateColumn()
-  deletedAt?: Date;
+  constructor(readonly user: UserPrimitive) {
+    this.#attributes = user;
+  }
+
+  static create(user: Partial<UserPrimitive>): User {
+    return new User({
+      id: user.id,
+      name: user.email,
+      email: user.email,
+      tax: user.tax,
+      active: user.active,
+    });
+  }
+
+  toPrimitive(): UserPrimitive {
+    return {
+      id: this.#attributes.id,
+      name: this.#attributes.name,
+      email: this.#attributes.email,
+      tax: this.#attributes.tax,
+      active: this.#attributes.active,
+    };
+  }
+
+  static fromArray(users: Array<UserPrimitive>): Array<User> {
+    return users.map((user) => new User(user));
+  }
 }
