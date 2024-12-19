@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique @db.VarChar()
+  id    Int @id @default(autoincrement())
+  email String @unique @db.VarChar()
   name  String @db.VarChar()
   password Password?
   roles UserRole[]

@@ -34,24 +34,7 @@ npm run dev
 ```
 # Comandos - Commands
 
-## create migration - como crear una migracion
-```bash
-npm run migration:create -- --name=NombreDeLaMigracion
-```
-
-## generate migration - como generar una migracion
-cuando generes una migracion agrega de preferencia IF NOT EXISTs y IF EXISTS en el drop
-I recomend add the sentence IF NOT EXISTs y IF EXISTS in the create and drop method
-```bash
-  npm run migration:generate -- --name=NombreDeLaMigracion 
-```
-
 ## run migration - como correr una migracion
 ```bash
-  npm run migration:migrate
-```
-
-## revert migration - como revertir una migracion
-```bash
-  npm run migration:revert
+  npx prisma migrate dev --name init
 ```
