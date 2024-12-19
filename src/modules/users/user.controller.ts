@@ -7,14 +7,14 @@ import { Public } from '@decorators/public.decorator';
 @Controller('users')
 export class UserController {
   constructor(
-    readonly userFindAllService: UserFindAllRepository,
-    readonly userService: UserCreateRepository,
+    readonly findAllService: UserFindAllRepository,
+    readonly createService: UserCreateRepository,
   ) {}
 
   @Public()
   @Get()
   async findAll() {
-    const users = await this.userFindAllService.findAll();
+    const users = await this.findAllService.findAll();
 
     return users;
   }
@@ -22,7 +22,7 @@ export class UserController {
   @Public()
   @Post()
   async create(@Body() userDto: UserCreateDto) {
-    const result = await this.userService.create(userDto);
+    const result = await this.createService.create(userDto);
 
     return result;
   }

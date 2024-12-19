@@ -12,13 +12,9 @@ class UserCreateRepository {
   async create(userDto: UserCreateDto): Promise<User> {
     const user = { ...userDto };
 
-    const userExists = await this.prismaService.user.findUnique({
-      where: { email: userDto.email },
-    });
+    await this.checkDuplicateEmail(user.email);
 
-    if (userExists) {
-      throw new ConflictException('Email already exists');
-    }
+    await this.checkDuplicateTax(user.tax);
 
     const hashedPassword = await encrypt(userDto.password);
 
@@ -51,6 +47,28 @@ class UserCreateRepository {
       tax: result.tax,
       active: result.active,
     });
+  }
+
+  async checkDuplicateEmail(email: string): Promise<void> {
+    const user = await this.prismaService.user.findUnique({
+      where: { email },
+    });
+
+    if (user) {
+      throw new ConflictException({ errors: ['Email already exists'] });
+    }
+  }
+
+  async checkDuplicateTax(tax?: string): Promise<void> {
+    const user = tax
+      ? await this.prismaService.user.findFirst({
+          where: { tax },
+        })
+      : null;
+
+    if (user) {
+      throw new ConflictException({ errors: ['Tax already exists'] });
+    }
   }
 }
 

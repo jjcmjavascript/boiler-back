@@ -34,7 +34,12 @@ npm run dev
 ```
 # Comandos - Commands
 
+## run migration - Crear una migracion
+```bash
+npx prisma migrate dev --name <nombre de la migracion>
+```
+
 ## run migration - como correr una migracion
 ```bash
-  npx prisma migrate dev --name init
+npx prisma migrate deploy
 ```
