@@ -6,7 +6,7 @@ import { PrismaService } from '@shared/services/database/prisma/prisma.service';
 export class UserFindAllRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(): Promise<Array<User>> {
+  async execute(): Promise<Array<User>> {
     const users = await this.prismaService.user.findMany();
 
     return User.fromArray(users);

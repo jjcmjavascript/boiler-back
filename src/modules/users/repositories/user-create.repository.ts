@@ -9,7 +9,7 @@ import { PrismaService } from '@shared/services/database/prisma/prisma.service';
 class UserCreateRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(userDto: UserCreateDto): Promise<User> {
+  async execute(userDto: UserCreateDto): Promise<User> {
     const user = { ...userDto };
 
     await this.checkDuplicateEmail(user.email);
