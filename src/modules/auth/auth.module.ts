@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserModule } from '@modules/users/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
-import { jwtSecret } from '@config/config';
+import { config } from '@config/config';
 import { AuthJwtSingInRepostory } from './repositories/auth-jwt-sigin.repository';
 import { UserRolesModule } from '@modules/user-roles/user-roles.module';
 import { PasswordModule } from '@modules/password/password.module';
@@ -13,7 +13,7 @@ import { PasswordModule } from '@modules/password/password.module';
     UserModule,
     JwtModule.register({
       global: true,
-      secret: jwtSecret,
+      secret: config.jwtSecret,
       signOptions: { expiresIn: '60s' },
     }),
   ],

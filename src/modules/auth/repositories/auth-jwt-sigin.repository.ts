@@ -7,6 +7,7 @@ import { UserFindOneRepository } from '@modules/users/repositories/user-find-one
 import { UserRolesFindOneRepository } from '@modules/user-roles/user-roles-find-one.repository';
 import { PasswordFindOneRepository } from '@modules/password/password-find-one.repository';
 import { Roles } from '@shared/services/permission/types/roles.enum';
+import { config } from '@config/config';
 
 @Injectable()
 export class AuthJwtSingInRepostory {
@@ -54,14 +55,16 @@ export class AuthJwtSingInRepostory {
 
     response.cookie('access_token', accessToken, {
       httpOnly: true,
-      secure: true,
+      secure: config.isProduction,
       maxAge: 3600000, // 1 hr
+      sameSite: 'lax',
     });
 
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: config.isProduction,
       maxAge: 3600000, // 1hr
+      sameSite: 'lax',
     });
   }
 }
