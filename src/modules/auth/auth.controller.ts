@@ -6,12 +6,12 @@ import {
   HttpStatus,
   Res,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthJwtSingInRepostory } from './repositories/auth-jwt-sigin.repository';
 import { SignInDto } from './auth.dto';
 import { Public } from '@decorators/public.decorator';
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authJwtSingInRepostory: AuthJwtSingInRepostory) {}
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -20,20 +20,20 @@ export class AuthController {
     @Body() signInDto: SignInDto,
     @Res({ passthrough: true }) response,
   ) {
-    return this.authService.signIn(
+    return this.authJwtSingInRepostory.signIn(
       response,
       signInDto.email,
       signInDto.password,
     );
   }
 
-  @Public()
-  @HttpCode(HttpStatus.OK)
-  @Post('refresh')
-  async refresh(
-    @Body('refresh_token') refreshToken: string,
-    @Res({ passthrough: true }) response,
-  ) {
-    return this.authService.refreshTokens(response, refreshToken);
-  }
+  // @Public()
+  // @HttpCode(HttpStatus.OK)
+  // @Post('refresh')
+  // async refresh(
+  //   @Body('refresh_token') refreshToken: string,
+  //   @Res({ passthrough: true }) response,
+  // ) {
+  //   return this.authService.refreshTokens(response, refreshToken);
+  // }
 }

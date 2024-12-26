@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UserModule } from '@/modules/users/user.module';
+import { UserModule } from '@modules/users/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { jwtSecret } from '@config/config';
-
+import { AuthJwtSingInRepostory } from './repositories/auth-jwt-sigin.repository';
+import { UserRolesModule } from '@modules/user-roles/user-roles.module';
+import { PasswordModule } from '@modules/password/password.module';
 @Module({
   imports: [
+    UserRolesModule,
+    PasswordModule,
     UserModule,
     JwtModule.register({
       global: true,
@@ -14,8 +17,8 @@ import { jwtSecret } from '@config/config';
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthJwtSingInRepostory],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthJwtSingInRepostory],
 })
 export class AuthModule {}

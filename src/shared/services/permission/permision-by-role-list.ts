@@ -1,8 +1,9 @@
+import { Permission } from './interface/permission.interface';
 import { Modules } from './types/modules.enum';
 import { Permissions } from './types/permissions.enum';
 import { Roles } from './types/roles.enum';
 
-export const permissionByRoleList = [
+export const permissionByRoleList: Array<Permission> = [
   {
     role: Roles.Admin,
     modules: [
@@ -15,6 +16,15 @@ export const permissionByRoleList = [
           Permissions.Disabled,
           Permissions.CreateUserAdmin,
         ],
+      },
+    ],
+  },
+  {
+    role: Roles.Admin,
+    modules: [
+      {
+        name: Modules.User,
+        permissions: [Permissions.Read, Permissions.Write],
       },
     ],
   },

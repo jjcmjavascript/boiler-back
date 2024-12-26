@@ -13,7 +13,6 @@ export class UserController {
     private readonly findOneService: UserFindOneRepository,
   ) {}
 
-  @Public()
   @Get()
   async findAll() {
     const users = await this.findAllService.execute();
@@ -31,7 +30,7 @@ export class UserController {
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    const user = await this.findOneService.execute(id);
+    const user = await this.findOneService.execute({ id });
 
     return user;
   }

@@ -1,19 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '@shared/entities/user.entity';
 import { PrismaService } from '@shared/services/database/prisma/prisma.service';
+import { User, UserPrimitive } from '@shared/entities/user.entity';
 
 @Injectable()
 export class UserFindOneRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(id: number): Promise<User> {
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        id,
-      },
+  async execute(
+    where: Partial<UserPrimitive>,
+    throwError: boolean = true,
+  ): Promise<User | null> {
+    const user = await this.prismaService.user.findFirst({
+      where,
     });
 
-    if (!user) {
+    if (!user && throwError) {
       throw new NotFoundException('User not found');
     }
 

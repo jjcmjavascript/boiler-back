@@ -1,5 +1,3 @@
-import { loadEnvFile } from 'process';
-
-loadEnvFile();
+import 'dotenv/config';
 
 export const jwtSecret = process.env.SECRET;

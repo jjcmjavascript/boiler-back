@@ -1,9 +1,9 @@
 import { Roles } from './types/roles.enum';
-import { Permission as IPermission } from './interface/permission.interface';
+import { Permission } from './interface/permission.interface';
 import { permissionByRoleList } from './permision-by-role-list';
 
 export class PermissionService {
-  private static permissions: IPermission[] = permissionByRoleList;
+  private static permissions: Permission[] = permissionByRoleList;
 
   public static getModulesByRoles(roles: Roles[]): string[] {
     let modules = [];
