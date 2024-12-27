@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
 
     try {
       if (!token) {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('Invalid token');
       }
 
       const payload = await this.jwtService.verifyAsync(token, {
@@ -50,7 +50,7 @@ export class AuthGuard implements CanActivate {
         return true;
       }
 
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid token');
     }
 
     return true;

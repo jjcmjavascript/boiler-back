@@ -4,6 +4,7 @@ import { UserFindAllRepository } from './repositories/user-find-all.repository';
 import { UserCreateDto } from './user.dto';
 import { Public } from '@decorators/public.decorator';
 import { UserFindOneRepository } from './repositories/user-find-one.repository';
+import { arrayEntityToHash } from '@shared/helpers/array-entity-to-hash.helper';
 
 @Controller('users')
 export class UserController {
@@ -17,7 +18,11 @@ export class UserController {
   async findAll() {
     const users = await this.findAllService.execute();
 
-    return users;
+    const normalizedUsers = arrayEntityToHash(users);
+
+    return {
+      users: normalizedUsers,
+    };
   }
 
   @Public()
