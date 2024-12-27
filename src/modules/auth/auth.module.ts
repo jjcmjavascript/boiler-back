@@ -15,7 +15,6 @@ import { AuthJwtRefreshRepository } from './repositories/auth-jwt-refresh.reposi
     JwtModule.register({
       global: true,
       secret: config.jwt.jwtSecret,
-      signOptions: { expiresIn: '60s' },
     }),
   ],
   providers: [AuthJwtSingInRepostory, AuthJwtRefreshRepository],
