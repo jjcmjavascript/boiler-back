@@ -6,6 +6,7 @@ import { config } from '@config/config';
 import { AuthJwtSingInRepostory } from './repositories/auth-jwt-sigin.repository';
 import { UserRolesModule } from '@modules/user-roles/user-roles.module';
 import { PasswordModule } from '@modules/password/password.module';
+import { AuthJwtRefreshRepository } from './repositories/auth-jwt-refresh.repository';
 @Module({
   imports: [
     UserRolesModule,
@@ -13,12 +14,12 @@ import { PasswordModule } from '@modules/password/password.module';
     UserModule,
     JwtModule.register({
       global: true,
-      secret: config.jwtSecret,
+      secret: config.jwt.jwtSecret,
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthJwtSingInRepostory],
+  providers: [AuthJwtSingInRepostory, AuthJwtRefreshRepository],
   controllers: [AuthController],
-  exports: [AuthJwtSingInRepostory],
+  exports: [AuthJwtSingInRepostory, AuthJwtRefreshRepository],
 })
 export class AuthModule {}

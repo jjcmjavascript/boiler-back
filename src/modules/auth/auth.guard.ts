@@ -6,16 +6,18 @@ import {
 } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
-import { jwtSecret } from '@config/config';
+import { config } from '@config/config';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '@decorators/public.decorator';
 import { Reflector } from '@nestjs/core';
+import { AuthJwtRefreshRepository } from './repositories/auth-jwt-refresh.repository';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly jwtService: JwtService,
+    private readonly refreshTokenRepository: AuthJwtRefreshRepository,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -28,33 +30,68 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
-
-    if (!token) {
-      throw new UnauthorizedException();
-    }
+    const request: Request = context.switchToHttp().getRequest();
+    const token = this.extractTokenFromHeader(request, 'access_token');
 
     try {
+      if (!token) {
+        throw new UnauthorizedException();
+      }
+
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: jwtSecret,
+        secret: config.jwt.jwtSecret,
       });
 
       request['user'] = payload;
     } catch {
+      const result = await this.tryRefreshToken(request);
+
+      if (result) {
+        return true;
+      }
+
       throw new UnauthorizedException();
     }
 
     return true;
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
-    const [access_token] = request.headers.cookie?.split(' ') ?? [];
+  private async tryRefreshToken(request: Request): Promise<boolean> {
+    try {
+      const refreshToken = this.extractTokenFromHeader(
+        request,
+        'refresh_token',
+      );
 
-    const [type, token] = access_token?.split('=') ?? [];
+      if (refreshToken) {
+        const payload = await this.refreshTokenRepository.refreshTokens(
+          request,
+          refreshToken,
+        );
 
-    return type && type.trim() === 'access_token'
-      ? token.replace(';', '')
-      : undefined;
+        request['user'] = await this.jwtService.verifyAsync(
+          payload.newAccessToken,
+          {
+            secret: config.jwt.jwtSecret,
+          },
+        );
+
+        return true;
+      }
+    } catch {
+      return false;
+    }
+  }
+
+  private extractTokenFromHeader(request: Request, tokenName: string): string {
+    const cookies = request.headers.cookie?.split(';') || [];
+    const tokenCookie = cookies.find((cookie) =>
+      cookie.trim().startsWith(`${tokenName}=`),
+    );
+    if (!tokenCookie) {
+      return null;
+    }
+    const [, cookieValue] = tokenCookie.split('=');
+    return cookieValue.trim();
   }
 }

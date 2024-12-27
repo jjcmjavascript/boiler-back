@@ -46,24 +46,26 @@ export class AuthJwtSingInRepostory {
     };
 
     const accessToken = this.jwtService.sign(payload, {
-      expiresIn: '60m',
+      secret: config.jwt.jwtSecret,
+      expiresIn: config.jwt.jwtExpiresIn,
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: '60m',
+      secret: config.jwt.jwtSecret,
+      expiresIn: config.jwt.jwtRefreshExpiresIn,
     });
 
     response.cookie('access_token', accessToken, {
       httpOnly: true,
-      secure: config.isProduction,
-      maxAge: 3600000, // 1 hr
+      secure: config.app.isProduction,
+      maxAge: config.jwt.jwtExpiresIn,
       sameSite: 'lax',
     });
 
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      secure: config.isProduction,
-      maxAge: 3600000, // 1hr
+      secure: config.app.isProduction,
+      maxAge: config.jwt.jwtRefreshExpiresIn,
       sameSite: 'lax',
     });
   }
