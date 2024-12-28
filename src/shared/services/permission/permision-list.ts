@@ -1,15 +1,15 @@
 import { Permission } from './interface/permission.interface';
 import { Modules } from './types/modules.enum';
-import { Permissions } from './types/permissions.enum';
+import { PermissionActions } from './types/permission-actions.enum';
 import { Roles } from './types/roles.enum';
 
-export const permissionByRoleList: Array<Permission> = [
+export const permissionList: Array<Permission> = [
   {
     role: Roles.Admin,
     modules: [
       {
         name: Modules.User,
-        permissions: [Permissions.Read, Permissions.Write],
+        permissions: [PermissionActions.Read, PermissionActions.Write],
       },
     ],
   },
@@ -19,11 +19,11 @@ export const permissionByRoleList: Array<Permission> = [
       {
         name: Modules.User,
         permissions: [
-          Permissions.Read,
-          Permissions.Write,
-          Permissions.Delete,
-          Permissions.Disabled,
-          Permissions.CreateUserAdmin,
+          PermissionActions.Read,
+          PermissionActions.Write,
+          PermissionActions.Delete,
+          PermissionActions.Disabled,
+          PermissionActions.CreateUserAdmin,
         ],
       },
     ],

@@ -1,24 +1,9 @@
 import { Roles } from './types/roles.enum';
 import { Permission } from './interface/permission.interface';
-import { permissionByRoleList } from './permision-by-role-list';
+import { permissionList } from './permision-list';
 
 export class PermissionService {
-  private static permissions: Permission[] = permissionByRoleList;
-
-  public static getModulesByRoles(roles: Roles[]): string[] {
-    let modules = [];
-    const permissions = PermissionService.permissions;
-
-    roles.forEach((role) => {
-      const currentRoleModules = permissions.find((p) => (p.role = role));
-
-      modules = [...modules, currentRoleModules.modules.map((m) => m.name)];
-    });
-
-    const modulesSet = new Set(modules);
-
-    return [...modulesSet];
-  }
+  private static permissions: Permission[] = permissionList;
 
   public static getModulesActionsByRoles(
     roles: Roles[],
