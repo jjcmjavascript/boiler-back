@@ -7,8 +7,8 @@ export interface UserRolesPrimitive {
 export class UserRoles {
   #attributes: UserRolesPrimitive;
 
-  constructor(readonly password: UserRolesPrimitive) {
-    this.#attributes = password;
+  constructor(readonly userRoles: UserRolesPrimitive) {
+    this.#attributes = userRoles;
   }
 
   static create(role: Partial<UserRolesPrimitive>): UserRoles {

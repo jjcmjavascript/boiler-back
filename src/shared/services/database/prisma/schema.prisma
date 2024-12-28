@@ -22,12 +22,12 @@ model Password {
   id Int @id @default(autoincrement())
   password String @db.VarChar()
   userId Int @unique
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserRole {
   id Int @id @default(autoincrement())
   name String  @db.VarChar()
   userId Int
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

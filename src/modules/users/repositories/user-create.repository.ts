@@ -1,52 +1,70 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { UserCreateDto } from '../user.dto';
 import { encrypt } from '@helpers/hash.helper';
 import { User } from '@entities/user.entity';
 import { Roles } from '@shared/services/permission/types/roles.enum';
 import { PrismaService } from '@shared/services/database/prisma/prisma.service';
+import { PasswordCreateRepository } from '@modules/password/password-create.repository';
+import { UserRolesCreateRepository } from '@modules/user-roles/user-roles-create.repository';
 
 @Injectable()
 class UserCreateRepository {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly passwordCreateRepository: PasswordCreateRepository,
+    private readonly userRoleCreateRepository: UserRolesCreateRepository,
+  ) {}
 
-  async execute(userDto: UserCreateDto): Promise<User> {
-    const user = { ...userDto };
+  async executeTransaction(userDto: UserCreateDto, type: Roles): Promise<User> {
+    await this.checkDuplicateEmail(userDto.email);
 
-    await this.checkDuplicateEmail(user.email);
+    await this.checkDuplicateTax(userDto.tax);
 
-    await this.checkDuplicateTax(user.tax);
+    try {
+      const user = { ...userDto };
 
-    const hashedPassword = await encrypt(userDto.password);
+      const hashedPassword = await encrypt(userDto.password);
 
-    const result = await this.prismaService.user.create({
-      data: {
-        name: user.name,
-        email: user.email,
-        tax: user.tax,
-      },
-    });
+      const newUser = await this.prismaService.$transaction(async (ctx) => {
+        const tempUser = await ctx.user.create({
+          data: {
+            name: user.name,
+            email: user.email,
+            tax: user.tax,
+          },
+        });
 
-    await this.prismaService.password.create({
-      data: {
-        password: hashedPassword,
-        userId: result.id,
-      },
-    });
+        await this.passwordCreateRepository.executeFromTransaction(
+          ctx,
+          tempUser.id,
+          hashedPassword,
+        );
 
-    await this.prismaService.userRole.create({
-      data: {
-        userId: result.id,
-        name: Roles.User,
-      },
-    });
+        await this.userRoleCreateRepository.executeFromTransaction(
+          ctx,
+          tempUser.id,
+          type,
+        );
 
-    return new User({
-      id: result.id,
-      name: result.name,
-      email: result.email,
-      tax: result.tax,
-      active: result.active,
-    });
+        return new User({
+          id: tempUser.id,
+          name: tempUser.name,
+          email: tempUser.email,
+          tax: tempUser.tax,
+          active: tempUser.active,
+        });
+      });
+
+      return newUser;
+    } catch (e) {
+      throw new InternalServerErrorException(
+        'An unexpected error occurred during user creation',
+      );
+    }
   }
 
   async checkDuplicateEmail(email: string): Promise<void> {

@@ -9,13 +9,7 @@ export const permissionByRoleList: Array<Permission> = [
     modules: [
       {
         name: Modules.User,
-        permissions: [
-          Permissions.Read,
-          Permissions.Write,
-          Permissions.Delete,
-          Permissions.Disabled,
-          Permissions.CreateUserAdmin,
-        ],
+        permissions: [Permissions.Read, Permissions.Write],
       },
     ],
   },
@@ -24,7 +18,13 @@ export const permissionByRoleList: Array<Permission> = [
     modules: [
       {
         name: Modules.User,
-        permissions: [Permissions.Read, Permissions.Write],
+        permissions: [
+          Permissions.Read,
+          Permissions.Write,
+          Permissions.Delete,
+          Permissions.Disabled,
+          Permissions.CreateUserAdmin,
+        ],
       },
     ],
   },
