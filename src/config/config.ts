@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 const jwtSecret = process.env.SECRET;
 const isProduction = process.env.NODE_ENV === 'production';
-const port = process.env.PORT || 3001;
+const port = process.env.SERVER_PORT || 3001;
 const origins = process.env.ORIGINS?.split(';') || 'http://localhost:3000';
 
 export const config = {
