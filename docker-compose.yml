@@ -17,7 +17,6 @@ services:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
 
-
   backend:
     build:
       context: .

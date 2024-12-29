@@ -16,6 +16,6 @@ RUN npx prisma generate
 
 COPY . .
 
-EXPOSE 3001
+EXPOSE $PORT
 
 CMD ["npm", "run", "dev"]
