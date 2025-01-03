@@ -19,4 +19,7 @@ export const config = {
     jwtExpiresIn: 3600000 / 2,
     jwtRefreshExpiresIn: 3600000, // 1hr
   },
+  pushNotification: {
+    token: process.env.EXPO_ACCESS_TOKEN,
+  },
 };

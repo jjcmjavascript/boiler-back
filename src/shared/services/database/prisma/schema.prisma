@@ -16,6 +16,7 @@ model User {
   tax String? @db.VarChar()
   active Boolean @default(true)
   password Password?
+  pushNotificationToken PushNotificationToken?
   roles UserRole[]
 }
 
@@ -31,4 +32,11 @@ model UserRole {
   name String  @db.VarChar()
   userId Int
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PushNotificationToken {
+  id Int @id @default(autoincrement())
+  token String @unique @db.VarChar()
+  userId Int? @unique
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

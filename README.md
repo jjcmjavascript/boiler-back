@@ -36,7 +36,7 @@ npm run dev
 
 ## run migration - Crear una migracion
 ```bash
-npx prisma migrate dev --name <nombre de la migracion>
+npx prisma migrate dev --name <nombre de la migracion> && npx prisma generate
 ```
 
 ## run migration - como correr una migracion

@@ -3,13 +3,13 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { UserCreateDto } from '../user.dto';
 import { encrypt } from '@helpers/hash.helper';
-import { User } from '@entities/user.entity';
+import { User, UserPrimitive } from '@entities/user.entity';
 import { Roles } from '@shared/services/permission/types/roles.enum';
 import { PrismaService } from '@shared/services/database/prisma/prisma.service';
 import { PasswordCreateRepository } from '@modules/password/password-create.repository';
 import { UserRolesCreateRepository } from '@modules/user-roles/user-roles-create.repository';
+import { PasswordPrimitive } from '@shared/entities/password.entity';
 
 @Injectable()
 class UserCreateRepository {
@@ -19,7 +19,10 @@ class UserCreateRepository {
     private readonly userRoleCreateRepository: UserRolesCreateRepository,
   ) {}
 
-  async executeTransaction(userDto: UserCreateDto, type: Roles): Promise<User> {
+  async executeTransaction(
+    userDto: Partial<UserPrimitive & PasswordPrimitive>,
+    type: Roles,
+  ): Promise<User> {
     await this.checkDuplicateEmail(userDto.email);
 
     await this.checkDuplicateTax(userDto.tax);
