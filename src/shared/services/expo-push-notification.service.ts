@@ -1,7 +1,10 @@
+import { config } from '@config/config';
+import { Injectable } from '@nestjs/common';
 import { Expo, ExpoPushTicket } from 'expo-server-sdk';
 
 export const expo = new Expo({
   useFcmV1: true,
+  accessToken: config.pushNotification.token,
 });
 
 export interface ExpoPushMessage {
@@ -20,14 +23,15 @@ const defaultExpoPushMessage: ExpoPushMessage = {
   title: '',
 };
 
-export class ExpoSendPusgNotification {
+@Injectable()
+export class ExpoSendPushNotification {
   private tickets: ExpoPushTicket[];
 
   constructor() {
     this.tickets = [];
   }
 
-  static async preparePushNotification(
+  async preparePushNotification(
     tokens: string[],
     message: Partial<ExpoPushMessage>,
   ): Promise<ExpoPushMessage[]> {
@@ -48,6 +52,7 @@ export class ExpoSendPusgNotification {
 
     return messages;
   }
+
   async sendPushNotification(messages: ExpoPushMessage[]) {
     const chunks = expo.chunkPushNotifications(messages);
     const tickets = [];
