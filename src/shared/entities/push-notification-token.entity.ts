@@ -23,6 +23,12 @@ export class PushNotificationToken {
     });
   }
 
+  static fromArray(
+    tokens: Array<Partial<PushNotificationTokenPrimitive>>,
+  ): Array<PushNotificationToken> {
+    return tokens.map((user) => PushNotificationToken.create(user));
+  }
+
   toPrimitive(): PushNotificationTokenPrimitive {
     return {
       id: this.#attributes.id,
