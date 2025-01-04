@@ -22,4 +22,7 @@ export const config = {
   pushNotification: {
     token: process.env.EXPO_ACCESS_TOKEN,
   },
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+  },
 };
