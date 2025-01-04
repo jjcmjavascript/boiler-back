@@ -14,25 +14,20 @@ export class PushNotificationTokenCreateRepository {
   ) {}
   async execute(
     pushNotificationTokenParams: Partial<PushNotificationTokenPrimitive>,
-  ): Promise<PushNotificationToken> {
+  ) {
     try {
-      let result = await this.checkAndGetIfTokenExists(
+      const result = await this.checkAndGetIfTokenExists(
         pushNotificationTokenParams.token,
       );
 
       if (!result) {
-        const tempResult =
-          await this.prismaService.pushNotificationToken.create({
-            data: {
-              userId: pushNotificationTokenParams.userId ?? null,
-              token: pushNotificationTokenParams.token,
-            },
-          });
-
-        result = PushNotificationToken.create(tempResult);
+        await this.prismaService.pushNotificationToken.create({
+          data: {
+            userId: pushNotificationTokenParams.userId ?? null,
+            token: pushNotificationTokenParams.token,
+          },
+        });
       }
-
-      return result;
     } catch {
       throw new InternalServerErrorException(
         'An unexpected error occurred during user creation',

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { PushNotificationTokenCreateDto } from './push-notification-token.dto';
 import { PushNotificationTokenCreateRepository } from './repositories/push-notification-token-create.repository';
 import { Public } from '@shared/decorators/public.decorator';
@@ -16,25 +16,22 @@ export class PushNotificationTokenController {
   @Public()
   @Post()
   async create(@Body() createDto: PushNotificationTokenCreateDto) {
-    const result =
-      await this.pushNotificationTokenCreateRepository.execute(createDto);
-
-    return result.toPrimitive();
+    await this.pushNotificationTokenCreateRepository.execute(createDto);
   }
 
-  @Public()
-  @Get('publish')
-  async publish(): Promise<void> {
-    const tokens = await this.pushNotificationTokenFindAllRepository.execute();
+  // @Public()
+  // @Get('publish')
+  // async publish(): Promise<void> {
+  //   const tokens = await this.pushNotificationTokenFindAllRepository.execute();
 
-    const messages = await this.expoService.preparePushNotification(
-      tokens.map((t) => t.toPrimitive().token),
-      {
-        title: 'Hello, world!',
-        body: 'This is a test notification.',
-      },
-    );
+  //   const messages = await this.expoService.preparePushNotification(
+  //     tokens.map((t) => t.toPrimitive().token),
+  //     {
+  //       title: 'Hello, world!',
+  //       body: 'This is a test notification.',
+  //     },
+  //   );
 
-    this.expoService.sendPushNotification(messages);
-  }
+  //   this.expoService.sendPushNotification(messages);
+  // }
 }
