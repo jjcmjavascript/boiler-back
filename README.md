@@ -43,3 +43,11 @@ npx prisma migrate dev --name <nombre de la migracion> && npx prisma generate
 ```bash
 npx prisma migrate deploy
 ```
+
+
+#Schedule methods
+
+To activate the funtionality you should uncomment the line in the app.module:
+```bash
+  ScheduleModule.forRoot(),
+```

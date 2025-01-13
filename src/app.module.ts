@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { PushNotificationTokenModule } from '@modules/push-notification-tokens/push-notification-token.module';
 import { config } from '@config/config';
+// import { ScheduleModule } from '@nestjs/schedule';
 
 const providers = [];
 
@@ -26,6 +27,7 @@ providers.push({
 @Module({
   imports: [
     SentryModule.forRoot(),
+    // ScheduleModule.forRoot(),
     UserModule,
     AuthModule,
     PushNotificationTokenModule,
