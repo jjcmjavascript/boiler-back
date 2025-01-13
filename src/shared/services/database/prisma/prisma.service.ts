@@ -16,14 +16,17 @@ export class PrismaService
 
   async cleanDatabase() {
     if (process.env.NODE_ENV === 'test') {
-      const tables = await this.$queryRaw<{ name: string }[]>`SELECT table_name
+      const tables = await this.$queryRaw<
+        { table_name: string }[]
+      >`SELECT table_name
       FROM information_schema.tables
      WHERE table_schema='public'
        AND table_type='BASE TABLE';
     `;
 
       for (const table of tables) {
-        await this.$executeRawUnsafe(`DELETE FROM ${table.name};`);
+        console.log(table);
+        await this.$executeRawUnsafe(`DELETE FROM "${table.table_name}";`);
       }
     }
   }
