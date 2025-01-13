@@ -18,6 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@/*": ["src/*"],
       "@shared/*": ["src/shared/*"],
       "@modules/*": ["src/modules/*"],
       "@services/*": ["src/shared/services/*"],

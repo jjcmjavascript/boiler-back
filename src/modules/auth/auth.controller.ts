@@ -9,6 +9,7 @@ import {
 import { AuthJwtSingInRepostory } from './repositories/auth-jwt-sigin.repository';
 import { SignInDto } from './auth.dto';
 import { Public } from '@decorators/public.decorator';
+
 @Controller('auth')
 export class AuthController {
   constructor(private authJwtSingInRepostory: AuthJwtSingInRepostory) {}
@@ -20,6 +21,7 @@ export class AuthController {
     @Body() signInDto: SignInDto,
     @Res({ passthrough: true }) response,
   ) {
+    console.log('-------------------__>s');
     return this.authJwtSingInRepostory.signIn(
       response,
       signInDto.email,

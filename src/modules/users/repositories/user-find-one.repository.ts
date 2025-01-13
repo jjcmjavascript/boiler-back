@@ -18,6 +18,6 @@ export class UserFindOneRepository {
       throw new NotFoundException('User not found');
     }
 
-    return User.create(user);
+    return user ? User.create(user) : null;
   }
 }

@@ -23,23 +23,23 @@ export class AuthJwtSingInRepostory {
     email: string,
     password: string,
   ): Promise<void> {
-    const user = (
-      await this.userFindOneRepository.execute({ email })
-    ).toPrimitive();
+    const user = await this.userFindOneRepository.execute({ email }, false);
 
     const userPassword = user
-      ? (await this.passwordFindOneRepository.execute(user.id)).toPrimitive()
+      ? (
+          await this.passwordFindOneRepository.execute(user.values.id)
+        ).toPrimitive()
       : null;
 
     if (!user || !userPassword || !compare(password, userPassword.password)) {
       throw new UnauthorizedException();
     }
 
-    const role = await this.userRolesFindOneRepository.execute(user.id);
+    const role = await this.userRolesFindOneRepository.execute(user.values.id);
 
     const payload = {
-      sub: user.id,
-      username: user.name,
+      sub: user.values.id,
+      username: user.values.name,
       scopes: PermissionService.getModulesActionsByRoles([
         Roles[role.toPrimitive().name as keyof typeof Roles],
       ]),
