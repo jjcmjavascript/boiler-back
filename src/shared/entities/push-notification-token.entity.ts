@@ -5,12 +5,12 @@ export interface PushNotificationTokenPrimitive {
 }
 
 export class PushNotificationToken {
-  #attributes: PushNotificationTokenPrimitive;
+  private attributes: PushNotificationTokenPrimitive;
 
   constructor(
     readonly pushNotificationTokenPrimitive: PushNotificationTokenPrimitive,
   ) {
-    this.#attributes = pushNotificationTokenPrimitive;
+    this.attributes = pushNotificationTokenPrimitive;
   }
 
   static create(
@@ -31,9 +31,16 @@ export class PushNotificationToken {
 
   toPrimitive(): PushNotificationTokenPrimitive {
     return {
-      id: this.#attributes.id,
-      userId: this.#attributes.userId,
-      token: this.#attributes.token,
+      id: this.attributes.id,
+      userId: this.attributes.userId,
+      token: this.attributes.token,
+    };
+  }
+  get values() {
+    return {
+      id: this.attributes.id,
+      userId: this.attributes.userId,
+      token: this.attributes.token,
     };
   }
 }

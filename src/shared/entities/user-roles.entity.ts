@@ -5,10 +5,10 @@ export interface UserRolesPrimitive {
 }
 
 export class UserRoles {
-  #attributes: UserRolesPrimitive;
+  private attributes: UserRolesPrimitive;
 
   constructor(readonly userRoles: UserRolesPrimitive) {
-    this.#attributes = userRoles;
+    this.attributes = userRoles;
   }
 
   static create(role: Partial<UserRolesPrimitive>): UserRoles {
@@ -21,9 +21,16 @@ export class UserRoles {
 
   toPrimitive(): UserRolesPrimitive {
     return {
-      id: this.#attributes.id,
-      userId: this.#attributes.userId,
-      name: this.#attributes.name,
+      id: this.attributes.id,
+      userId: this.attributes.userId,
+      name: this.attributes.name,
+    };
+  }
+  get values() {
+    return {
+      id: this.attributes.id,
+      userId: this.attributes.userId,
+      name: this.attributes.name,
     };
   }
 }

@@ -8,10 +8,10 @@ export interface UserPrimitive {
 }
 
 export class User {
-  #attributes: UserPrimitive;
+  private attributes: UserPrimitive;
 
   constructor(readonly user: UserPrimitive) {
-    this.#attributes = user;
+    this.attributes = user;
   }
 
   static create(user: Partial<UserPrimitive>): User {
@@ -26,15 +26,25 @@ export class User {
 
   toPrimitive(): UserPrimitive {
     return {
-      id: this.#attributes.id,
-      name: this.#attributes.name,
-      email: this.#attributes.email,
-      tax: this.#attributes.tax,
-      active: this.#attributes.active,
+      id: this.attributes.id,
+      name: this.attributes.name,
+      email: this.attributes.email,
+      tax: this.attributes.tax,
+      active: this.attributes.active,
     };
   }
 
   static fromArray(users: Array<UserPrimitive>): Array<User> {
     return users.map((user) => new User(user));
+  }
+
+  get values() {
+    return {
+      id: this.attributes.id,
+      name: this.attributes.email,
+      email: this.attributes.email,
+      tax: this.attributes.tax,
+      active: this.attributes.active,
+    };
   }
 }

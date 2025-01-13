@@ -5,10 +5,10 @@ export interface PasswordPrimitive {
 }
 
 export class Password {
-  #attributes: PasswordPrimitive;
+  private attributes: PasswordPrimitive;
 
   constructor(readonly password: PasswordPrimitive) {
-    this.#attributes = password;
+    this.attributes = password;
   }
 
   static create(password: Partial<PasswordPrimitive>): Password {
@@ -21,9 +21,17 @@ export class Password {
 
   toPrimitive(): PasswordPrimitive {
     return {
-      id: this.#attributes.id,
-      userId: this.#attributes.userId,
-      password: this.#attributes.password,
+      id: this.attributes.id,
+      userId: this.attributes.userId,
+      password: this.attributes.password,
+    };
+  }
+
+  get values() {
+    return {
+      id: this.attributes.id,
+      userId: this.attributes.userId,
+      password: this.attributes.password,
     };
   }
 }
