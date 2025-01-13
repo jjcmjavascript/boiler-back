@@ -8,6 +8,11 @@ postgresql version 13.0.0+
 npm install
 ```
 
+You need instal donenv-cli to use different .env files and execute test
+```bash
+npm install -g dotenv-cli 
+```
+
 ### Crear archivo .env - Create .env file
 ```bash
 cp example.env .env

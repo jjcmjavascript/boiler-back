@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '@/app.module';
 import { AuthModule } from '@/modules/auth/auth.module';
+import { UserModule } from '@/modules/users/user.module';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, AuthModule],
+      imports: [AuthModule, UserModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -33,26 +33,22 @@ describe('AuthController (e2e)', () => {
       expect(response.body).toHaveProperty('message');
       expect(response.body.message).toBe('Unauthorized');
     });
+  });
 
-    // it('should return 200 and a valid token for correct credentials', async () => {
-    //   const response = await request(app.getHttpServer())
-    //     .post('/auth/login')
-    //     .send({ email: 'test@example.com', password: 'ValidPassword123' });
+  describe('/user (POST)', () => {
+    it('should return ok, when registering and authenticating the user', async () => {
+      const tempUser = {
+        name: 'test',
+        email: 'test@example.com',
+        password: 'WrongPassword',
+      };
 
-    //   expect(response.status).toBe(200);
-    //   expect(response.body).toHaveProperty('token');
-    //   expect(typeof response.body.token).toBe('string');
-    // });
+      const response = await request(app.getHttpServer())
+        .post('/users')
+        .send(tempUser);
 
-    // it('should return 400 for missing email or password', async () => {
-    //   const response = await request(app.getHttpServer())
-    //     .post('/auth/login')
-    //     .send({ email: 'test@example.com' });
-
-    //   expect(response.status).toBe(400);
-    //   expect(response.body).toHaveProperty('message');
-    //   expect(response.body.message).toContain('password should not be empty');
-    // });
+      expect(response.status).toBe(201);
+    });
   });
 
   afterAll(async () => {

@@ -16,5 +16,6 @@
     "^@decorators/(.*)$": "<rootDir>/../src/shared/decorators/$1",
     "^@helpers/(.*)$": "<rootDir>/../src/shared/helpers/$1"
 
-  }
+  },
+  "setupFiles": ["<rootDir>/setup-env.ts"]
 }

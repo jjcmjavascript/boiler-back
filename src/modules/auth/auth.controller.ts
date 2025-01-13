@@ -21,7 +21,6 @@ export class AuthController {
     @Body() signInDto: SignInDto,
     @Res({ passthrough: true }) response,
   ) {
-    console.log('-------------------__>s');
     return this.authJwtSingInRepostory.signIn(
       response,
       signInDto.email,
