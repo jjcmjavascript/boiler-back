@@ -3,7 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { UserModule } from '@/modules/users/user.module';
-import { resetDb } from './helpers/resetdb';
+import { resetDb } from '../helpers/resetdb';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

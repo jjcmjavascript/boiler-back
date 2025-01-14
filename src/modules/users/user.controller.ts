@@ -38,7 +38,7 @@ export class UserController {
       Roles.User,
     );
 
-    return result;
+    return result.toPrimitive();
   }
 
   @HasRoles(Roles.Admin)

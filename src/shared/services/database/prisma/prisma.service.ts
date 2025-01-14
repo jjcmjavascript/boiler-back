@@ -25,7 +25,6 @@ export class PrismaService
     `;
 
       for (const table of tables) {
-        console.log(table);
         await this.$executeRawUnsafe(`DELETE FROM "${table.table_name}";`);
       }
     }

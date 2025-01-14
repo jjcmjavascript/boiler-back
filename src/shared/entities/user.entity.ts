@@ -41,7 +41,7 @@ export class User {
   get values() {
     return {
       id: this.attributes.id,
-      name: this.attributes.email,
+      name: this.attributes.name,
       email: this.attributes.email,
       tax: this.attributes.tax,
       active: this.attributes.active,
