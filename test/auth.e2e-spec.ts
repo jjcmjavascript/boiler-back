@@ -36,12 +36,12 @@ describe('AuthController (e2e)', () => {
     });
   });
 
-  describe('/user (POST)', () => {
-    it('should return ok, when registering and authenticating the user', async () => {
+  describe('/auth (POST)', () => {
+    it('should return ok, with auth credentials', async () => {
       const tempUser = {
         name: 'test',
         email: 'test@example.com',
-        password: 'WrongPassword',
+        password: 'myPassword--',
       };
 
       const response = await request(app.getHttpServer())
@@ -49,6 +49,19 @@ describe('AuthController (e2e)', () => {
         .send(tempUser);
 
       expect(response.status).toBe(201);
+
+      const responseAuth = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send(tempUser);
+
+      expect(responseAuth.status).toBe(200);
+
+      expect(responseAuth.headers).toHaveProperty('set-cookie');
+      expect(responseAuth.headers['set-cookie']).toBeTruthy();
+      expect(responseAuth.headers['set-cookie'].length).toBeGreaterThan(0);
+      expect(
+        responseAuth.headers['set-cookie'][0].includes('access_token='),
+      ).toBeTruthy();
     });
   });
 

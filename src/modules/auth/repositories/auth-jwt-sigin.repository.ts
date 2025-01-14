@@ -59,14 +59,14 @@ export class AuthJwtSingInRepostory {
       httpOnly: true,
       secure: config.app.isProduction,
       maxAge: config.jwt.jwtExpiresIn,
-      sameSite: 'lax',
+      sameSite: 'strict',
     });
 
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
       secure: config.app.isProduction,
       maxAge: config.jwt.jwtRefreshExpiresIn,
-      sameSite: 'lax',
+      sameSite: 'strict',
     });
   }
 }
